@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章中的实例3</title>
+    <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+  <div id="vueInstance">
+    <mine :name='name'
+          :title='title'
+          :city='city'
+          :content='content'
+    ></mine>
+  </div>
+
+  <template id="mineTpl">
+    <h1>{{ name }}</h1>
+    <h2>{{ title }}</h2>
+    <h3>{{ city }}</h3>
+    <p>{{ content }}</p>
+  </template>
+
+  <script>
+    Vue.component('mine',{
+      template : '#mineTpl',
+      props : ['name','title','city','content']
+    });
+
+    var V = new Vue({
+      el : '#vueInstance',
+      data : {
+        name : 'Appian',
+        title : 'This is a title',
+        city : 'FuJian-XiaMen',
+        content : 'There are some desc about Appians Blog'
+      }
+    });
+  </script>
+</body>
+</html>

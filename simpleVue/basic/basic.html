@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>测试Vue的基本用法</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+<div id="a">
+  <ul>
+    <!-- 循环输出并在每个li上绑定了点击事件，
+            todo指向的是在当前这个li渲染的对象 -->
+    <li v-for = "todo in todos" v-on:click="myclick(todo)">
+      <!-- 数组元素对象具有text属性，用{{}}插值 -->
+      {{todo.text}}
+    </li>
+  </ul>
+</div>
+
+<script>
+  var a = new Vue({
+    // 绑定的元素为#a
+    el : '#a',
+    data :{
+      // 用来循环的数组todos，todo是指针
+      todos :[
+        {text :'123'},
+        {text :'abc'},
+        {text: 'ABC'}
+      ]
+    },
+    methods :{
+      // 把当前点击的对象传入函数，并弹窗显示
+      myclick : function(n){
+        alert(n.text);
+      }
+    }
+
+  })
+</script>
+
+<div id="app">
+  <!-- 在这个输入框中输入的值双向绑定了newTodo
+        并且当点击回车的时候执行addTodo方法 -->
+  <input v-model="newTodo" v-on:keyup.enter = "addTodo"/>
+  <!-- 用一个span动态显示目前修改的newTodo的值 -->
+  <span>{{newTodo}}</span>
+  <ul>
+    <!-- 循环输出 -->
+    <li v-for="todo in todos">
+      <span>{{todo.txt}}</span>
+      <!-- 在点击按钮时执行removeTodo方法，
+                $index指向当前循环的index -->
+      <button v-on:click = "removeTodo($index)">x</button>
+    </li>
+  </ul>
+</div>
+
+<script>
+  new Vue({
+    el : "#app",
+    data : {
+      // newTodo的初值，初值为数值
+      newTodo : '1',
+      // todos的初值为一个数组，数组元素是对象
+      todos : [
+        {txt : 'welcome to vue'}
+      ]
+    },
+    methods : {
+      addTodo : function(){
+        var str = this.newTodo.trim();
+        if(str){
+          this.todos.push({txt : str})
+          this.newTodo = '';
+        }
+      },
+      removeTodo : function(index){
+        this.todos.splice(index,1);
+      }
+    }
+  })
+</script>
+
+<div id="temp">
+  <a :href="'http://www.baidu.com'">点击跳转</a>
+</div>
+
+<script>
+  var model =  new Vue({
+    el : "#temp",
+    data : {
+      id : '1'
+    },
+    methods :{
+
+    }
+
+  });
+</script>
+
+</body>
+</html>

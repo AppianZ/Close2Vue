@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章中的实例</title>
+    <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+  <h3>转化成全大写的过滤器： {{ 'abcd' | uppercase  }} </h3>
+  <br/><br/><br/>
+
+
+  <ul>
+    显示所有商品：（名称首字母大写，价格加$）
+    <li v-for="product in products">
+      {{ product.name | capitalize }} - {{ product.price | currency }}
+    </li>
+  </ul>
+  <br/><br/><br/>
+
+
+  <ul>
+    显示所有electronics商品：（名称首字母大写，价格加$）
+    <li v-for="product in products | filterBy 'electronics' in 'category' ">
+      {{ product.name | capitalize }} - {{ product.price | currency }}
+    </li>
+  </ul>
+  <br/><br/><br/>
+
+
+  <ul>
+    显示所有electronics商品：（名称首字母大写，价格加$，按商品名称字母顺序排序）
+    <li v-for="product in products
+                   | filterBy 'electronics' in 'category'
+                   | orderBy  'name' "
+    >
+      {{ product.name | capitalize }} - {{ product.price | currency }}
+    </li>
+  </ul>
+  <br/><br/><br/>
+
+  <ul>
+    商品半价：
+    <li v-for="product in products">
+      {{ product.name | capitalize }} - {{ product.price | discount1 | currency }}
+    </li>
+  </ul>
+  <br/><br/><br/>
+
+
+  <ul>
+    <li v-for="product in products">
+      {{ product.name | capitalize }} - {{ product.price | discount2 75 | currency }}
+    </li>
+  </ul>
+
+  <script>
+    Vue.filter( 'discount1' , function(value) {
+      return value  * .5 ;
+    });
+
+    new Vue({
+      el : 'body',
+      data : {
+        products : [
+          {name: 'microphone', price: 25, category: 'electronics'},
+          {name: 'laptop case', price: 15, category: 'accessories'},
+          {name: 'screen cleaner', price: 17, category: 'accessories'},
+          {name: 'laptop charger', price: 70, category: 'electronics'},
+          {name: 'mouse', price: 40, category: 'electronics'},
+          {name: 'earphones', price: 20, category: 'electronics2'},
+          {name: 'monitor', price: 120, category: 'electronics2'}
+        ]
+      },
+      filters: {
+        discount2 : function(value, dis){
+          return value * ( dis / 100 );
+        }
+      }
+    });
+  </script>
+</body>
+</html>

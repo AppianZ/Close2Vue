@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章中的实例1</title>
+    <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+  <div id="vueInstance">
+    <mine></mine>
+    <mine></mine>
+    <mine></mine>
+  </div>
+
+  <script>
+    Vue.component('mine',{   //这里就是注册的内容
+      template : '<p>My name is Appian.</p>'
+    });
+
+    var V = new Vue({
+      el : '#vueInstance'
+    });
+  </script>
+
+</body>
+</html>

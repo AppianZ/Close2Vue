@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章中的实例1</title>
+    <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+  <div id="vueInstance">
+    <!--loginStatus为true时会显示的section-->
+    <section v-if="loginStatus">
+      输入您的姓名: <input type="text" v-model="name">
+      <p>{{ $data | json }}</p>
+      <p>{{ name }}</p>
+      <button v-on:click="say">欢迎点击</button>
+      <button @click="switchLoginStatus">退出登录</button>
+    </section>
+
+    <!--loginStatus为false时会显示的section-->
+    <section v-if="!loginStatus">
+      登录用户: <input type="text">
+      登录密码: <input type="password">
+      <button @click="switchLoginStatus">登录</button>
+    </section>
+  </div>
+
+  <script>
+    var V = new Vue({
+      el : '#vueInstance',
+      data : {
+        name : '_Appian',
+        loginStatus :　false
+      },
+      methods : {
+        say : function(){
+          alert('欢迎' + this.name);
+        },
+        switchLoginStatus : function(){
+          this.loginStatus = !this.loginStatus;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

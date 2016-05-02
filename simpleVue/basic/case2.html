@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章中的实例v-for</title>
+    <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+  <div id="vueInstance">
+    <ul>
+      <li v-for="el in products">
+        {{ el.name }} - ￥ {{ el. price }} - {{ el. category }}
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="el in products">
+        {{ $index }} - {{ el.name }} - ￥ {{ el. price }} - {{ el. category }}
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="(index,el) in products">
+        {{ index }} - {{ el.name }} - ￥ {{ el. price }} - {{ el. category }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    var V = new Vue({
+      el : '#vueInstance',
+      data : {
+        products : [
+          {name: 'microphone', price: 25, category: 'electronics'},
+          {name: 'laptop case', price: 15, category: 'accessories'},
+          {name: 'screen cleaner', price: 17, category: 'accessories'},
+          {name: 'laptop charger', price: 70, category: 'electronics'},
+          {name: 'mouse', price: 40, category: 'electronics'},
+          {name: 'earphones', price: 20, category: 'electronics'},
+          {name: 'monitor', price: 120, category: 'electronics'}
+        ]
+      }
+    });
+  </script>
+</body>
+</html>

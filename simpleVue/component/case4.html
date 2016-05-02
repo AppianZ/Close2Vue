@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>文章中的实例4</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    i {
+      display: inline-block;
+      padding: 3px 5px;
+      border: 1px solid #aaa;
+      border-radius: 10px;
+    }
+    .disabled {
+      color : orange;
+    }
+  </style>
+</head>
+<body>
+  <div id="vueInstance">
+    <div class="container">
+      <ul>
+        <post v-for="post in posts" :post="post"></post>
+      </ul>
+
+      <div id="commentBox">
+        请输入评论内容并提交：
+        <input type="text" v-model="comment" @keyup.enter="postComment">
+        <button @click="postComment">提交评论</button>
+      </div>
+    </div>
+  </div>
+
+  <template id="postTpl">
+    <li>
+      <i class="up" @click="upvote" :class="{disabled: upvoted}">我支持</i>
+      <span>票数： {{ votes }}</span>
+      <i class="down" @click="downvote" :class="{disabled: downvoted}">我反对</i>
+      <a>话题： {{ post.title }}</a>
+    </li>
+  </template>
+
+  <script>
+    Vue.component('post',{
+      template : '#postTpl',
+      props : ['post'],
+      data : function (){
+        return {  //data必须为function，定义投票状态
+          upvoted: false,
+          downvoted: false
+        }
+      },
+      methods : {
+        upvote : function() { //点击赞成的事件
+          this.upvoted = !this.upvoted;
+          this.downvoted = false;
+        },
+        downvote: function() { //点击反对的事件
+          this.downvoted = !this.downvoted;
+          this.upvoted = false;
+        }
+      },
+      computed: {  //重点部分
+        votes: function () {
+          if (this.upvoted) {
+            return this.post.votes + 1;
+          } else if (this.downvoted) {
+            return this.post.votes - 1;
+          } else {
+            return this.post.votes;
+          }
+        }
+      }
+    });
+
+    var V = new Vue({
+      el : '#vueInstance',
+      data : {
+        posts: [{
+          title: '请大大多多为我投票，我给大家发红包',
+          votes: 15
+        },{
+          title: '投我准没错',
+          votes: 53
+        },{
+          title: '不要投给我楼上的',
+          votes: 10
+        }],
+        comment: ''
+      },
+      methods: {
+        postComment: function() {
+          this.posts.push({
+            title: this.comment,
+            votes: 0
+          })
+          this.comment = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
