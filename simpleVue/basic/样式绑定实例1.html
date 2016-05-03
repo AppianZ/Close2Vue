@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>样式绑定实例1</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    #test1{
+      border: 2px dashed #FF7585;
+      margin: 20px;
+      padding: 10px;
+    }
+    /*///////////////////////////////////*/
+    .box1{
+      display: inline-block;
+      height: 300px;
+      width: 300px;
+      background: #FFA701;
+    }
+    .classA{
+      border: 3px solid red;
+    }
+    .classB{
+      border-radius:30px ;
+    }
+    /*/////////////////////////////////////*/
+    .box2{
+      display: inline-block;
+      height: 300px;
+      width: 300px;
+      background: #FF8290;
+    }
+    .AA{
+      border: 3px solid red;
+    }
+    .BB{
+      border-radius:30px;
+    }
+    /*////////////////////////////////////*/
+    .box3{
+      display: inline-block;
+      height: 300px;
+      width: 300px;
+      background: #0088CC;
+    }
+    .A{
+      border: 3px solid red;
+    }
+    .B{
+      border-radius:30px;
+    }
+    /*/////////////////////////////////////////////////////////////*/
+    #test2{
+      border: 2px dashed #FF7585;
+      margin: 20px;
+      padding: 10px;
+    }
+    .box4{
+      display: inline-block;
+      height:300px;
+      width: 300px;
+      border: 3px solid saddlebrown;
+    }
+    /*/////////////////////////////////////////////////////////*/
+    #test3{
+      border: 2px dashed #FF7585;
+      margin: 20px;
+      padding: 10px;
+    }
+    .box5{
+      display: inline-block;
+      height:300px;
+      width: 300px;
+      border: 3px solid saddlebrown;
+    }
+  </style>
+
+
+</head>
+<body>
+<!--1.绑定css样式-->
+<div id='test1' >
+  <!--间接对象绑定-->
+  <div class="box1" v-bind:class="classObject"></div>
+  <!--直接对象绑定-->
+  <div class="box2" v-bind:class="{'AA':isAA,'BB':isBB}" v-on:click="myclick2"></div>
+  <!--数组绑定-->
+  <div class="box3" v-bind:class="[first,last]"></div>
+</div>
+<!--1.绑定css样式结束-->
+
+<!--2.绑定内联样式-->
+<div id="test2">
+  <!--间接对象绑定-->
+  <div class="box4" v-bind:style = "styleObject"></div>
+  <!--直接对象绑定-->
+  <div class="box4"
+       v-bind:style = "{'backgroundColor' : newcolor,
+					 				borderRadius : newsize +'px'}">
+  </div>
+  <!--数组绑定-->
+  <div class="box4" v-bind:style = "[styleObject]"></div>
+</div>
+<!--2.绑定内联样式结束-->
+
+<!--3测试背景图片-->
+<div id="test3">
+  <div class="box5" v-bind:style = "styleObject"></div>
+  <div class="box5" v-bind:style = "{'backgroundImage': 'url(' + my + ')','backgroundSize' : 'cover'}"></div>
+</div>
+<!--3测试背景图片结束-->
+
+
+<!--1.绑定css样式-->
+<script>
+  var vm1 = new Vue({
+    el : '#test1',
+    data :{
+      classObject :{
+        'classA' : true,
+        'classB' : false
+      },
+      isAA : false,
+      isBB : true,
+      first :'A',
+      last : 'B'
+    },
+    methods :{
+      myclick1 : function(){
+      },
+      myclick2 : function(){
+        this.isAA = ! this.isAA;
+        this.isBB = ! this.isBB;
+      },
+      myclick3 : function(){
+      }
+    }
+  })
+
+</script>
+<!--1.绑定css样式结束-->
+
+<!--2.绑定内联样式-->
+<script type="text/javascript">
+  var vm2 = new Vue({
+    el : "#test2",
+    data : {
+      newcolor : 'purple',
+      newsize : 15,
+      styleObject : {
+        backgroundColor : 'yellow'
+      }
+    }
+  });
+</script>
+<!--2.绑定内联样式结束-->
+
+<!--3测试背景图片-->
+<script type="text/javascript">
+  var myurl = 'http://7xqsim.com1.z0.glb.clouddn.com/%E5%AF%BF%E5%8F%B8.jpg';
+  var mycolor = 'yellow';
+  var vm3 = new Vue({
+    el:"#test3",
+    data : {
+      my : 'http://7xqsim.com1.z0.glb.clouddn.com/%E5%AF%BF%E5%8F%B8.jpg',
+      styleObject : {
+//							backgroundColor : mycolor,
+        backgroundImage: 'url('+ myurl +')',
+        backgroundPosition : 'center',
+        backgroundSize : 'cover'
+      }
+    }
+  })
+</script>
+<!--3测试背景图片结束-->
+</body>
+</html>

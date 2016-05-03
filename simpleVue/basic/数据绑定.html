@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数据绑定</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    #test1,#test2{
+      border: 2px dashed #FF8190;
+      margin: 5px;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+<!--1.插值-->
+<div id="test1">
+  <p>姓：</p>
+  <input  v-model = "newFirstname" />
+  <p>名：</p>
+  <input  v-model = "newLastname"/>
+  <button v-on:click ="setName">添加姓名</button>
+  <p>姓：{{newFirstname}}</p>
+  <p>名：{{newLastname}}</p>
+  <ul>
+    <li v-for="name in namearray">
+					<span>
+						{{$index}} - {{name.firstname}} || {{name.lastname}}
+					</span>
+      <button v-on:click = "getName($index)">alert</button>
+    </li>
+  </ul>
+</div>
+<!--1.插值结束-->
+
+
+<!--2.绑定html和表达式-->
+<div id="test2">
+  <p>绑定html</p>
+  <p>输入字符串：{{html}}</p>
+  <p>字符串执行html：{{{html}}}</p>
+</div>
+<!--2.绑定html和表达式结束-->
+
+<!------------------------------------------------------------------>
+<!--1.插值-->
+<script type="text/javascript">
+  var vm1 = new Vue({
+    el : '#test1',
+    data : {
+      newFirstname : '',
+      newLastname : '',
+      namearray : [
+        {	firstname : 'zhang',  lastname : 'jiawei' },
+        {     firstname : 'lin', lastname :'junjie' }
+      ]
+    },
+    methods : {
+      getName :  function(index){
+        alert(this.namearray[index].firstname
+          + ' '
+          +this.namearray[index].lastname);
+      },
+      setName : function(){
+        var first = this.newFirstname.trim();
+        var last = this.newLastname.trim();
+        if(first && last){
+          this.namearray.push({
+            firstname : first,
+            lastname : last
+          });
+          this.newFirstname ='';
+          this.newLastname = '';
+        }
+      }
+    }
+  })
+</script>
+<!--1.插值结束-->
+
+<!--2.绑定html和表达式-->
+<script type="text/javascript">
+  var vm2 =new Vue({
+    el : '#test2',
+    data : {
+      html : '<b>这是原始的html</b>'
+    }
+  });
+</script>
+<!--2.绑定html和表达式结束-->
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>vuemakes</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    .on{
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<!--1.直接使用过滤器-->
+<!--<div id="app1">
+        <task :list="tasks"></task>
+    </div>
+
+    <template id="temp1">
+        <h2>统计({{remaining}})</h2>
+        <ul>
+            <li v-for="task in list" :class="{'on' : task.press}" @click="task.press =!task.press">{{task.name}} ~~ {{task.plan}}</li>
+        </ul>
+    </template>
+
+    <script>
+        new Vue({
+            el :"#app1",
+            data : {
+                tasks : [
+                    { name : 'zhang', plan : 'java', press : true},
+                    { name : 'liang', plan : 'c++', press : false },
+                    { name : 'lai', plan : 'php', press : false }
+                ]
+            },
+            components : {
+                'task' :{
+                    template : "#temp1",
+                    props : ['list'],
+                    computed : {
+                        remaining : function(){
+                            return this.list.filter(function(task){
+                                return !task.press;
+                            }).length;
+                        }
+                    }
+                }
+            }
+        })
+    </script>-->
+<!--1.直接使用过滤器结束-->
+
+
+<!--2.使用过滤器的另一种方法-->
+<!--<div id="app2">
+        <task :list="tasks"></task>
+    </div>
+
+    <template id="temp2">
+        <h2>统计({{remaining}})</h2>
+        <ul>
+            <li v-for="task in list" :class="{'on' : task.press}" @click="task.press =!task.press">{{task.name}} ~~ {{task.plan}}</li>
+        </ul>
+    </template>
+
+    <script>
+        new Vue({
+            el :"#app2",
+            data : {
+                tasks : [
+                    { name : 'zhang', plan : 'java', press : true},
+                    { name : 'liang', plan : 'c++', press : false },
+                    { name : 'lai', plan : 'php', press : false }
+                ]
+            },
+            components : {
+                'task' :{
+                    template : "#temp2",
+                    props : ['list'],
+                    computed : {
+                        remaining : function(){
+                            var vm = this;
+                            return this.list.filter(function(task){
+                                return !vm.isCompleted(task);
+                            }).length;
+                        }
+                    },
+                    methods :{
+                        isCompleted : function(task){
+                            return task.press;
+                        }
+                    }
+
+                }
+            }
+        })
+    </script>-->
+<!--2.使用过滤器的另一种方法结束-->
+
+<!--3.使用x删除当前-->
+<!--	<div id="app3">
+          <task :list="tasks"></task>
+      </div>
+
+      <template id="temp3">
+          <h2>统计
+              <span v-show="remaining">({{remaining}})</span>
+
+          </h2>
+          <ul v-show = "list.length">
+              <li v-for="task in list"
+                  :class="{'on' : task.press}"
+                  @click="task.press =!task.press"
+              >
+              {{task.name}} ~~ {{task.plan}}
+                  <strong @click="deleteTask(task)">X</strong>
+              </li>
+          </ul>
+
+          <p v-else> nothing at all </p>
+      </template>
+
+      <script>
+          new Vue({
+              el :"#app3",
+              data : {
+                  tasks : [
+                      { name : 'zhang', plan : 'java', press : true},
+                      { name : 'liang', plan : 'c++', press : false },
+                      { name : 'lai', plan : 'php', press : false }
+                  ]
+              },
+              components : {
+                  'task' :{
+                      template : "#temp3",
+                      props : ['list'],
+                      computed : {
+                          remaining : function(){
+                              var vm = this;
+                              return this.list.filter(function(task){
+                                  return !vm.isCompleted(task);
+                              }).length;
+                          }
+                      },
+                      methods :{
+                          isCompleted : function(task){
+                              return task.press;
+                          },
+                          deleteTask : function(task){
+                              this.list.$remove(task);
+                          }
+                      }
+
+                  }
+              }
+          })
+      </script>-->
+<!--3.使用x删除当前结束-->
+
+<!--4.使用全部清除-->
+<div id="app4">
+  <task :list="tasks"></task>
+</div>
+
+<template id="temp4">
+  <h2>统计
+    <span v-show="remaining">({{remaining}})</span>
+
+  </h2>
+  <ul v-show = "list.length">
+    <li v-for="task in list"
+        :class="{'on' : task.press}"
+        @click="task.press =!task.press"
+    >
+      {{task.name}} ~~ {{task.plan}}
+      <strong @click="deleteTask(task)">X</strong>
+    </li>
+  </ul>
+
+  <p v-else> nothing at all </p>
+
+  <button @click="deleteAll()">deleteAll</button>
+</template>
+
+<script>
+  new Vue({
+    el :"#app4",
+    data : {
+      tasks : [
+        { name : 'zhang', plan : 'java', press : true},
+        { name : 'liang', plan : 'c++', press : false },
+        { name : 'lai', plan : 'php', press : false }
+      ]
+    },
+    components : {
+      'task' :{
+        template : "#temp4",
+        props : ['list'],
+        computed : {
+          remaining : function(){
+            var vm = this;
+            return this.list.filter(function(task){
+              return !vm.isCompleted(task);
+            }).length;
+          }
+        },
+        methods :{
+          isCompleted : function(task){
+            return task.press;
+          },
+          deleteTask : function(task){
+            this.list.$remove(task);
+          },
+          deleteAll : function(){
+            this.list = this.list.filter(this.isCompleted);
+          }
+        }
+      }
+    }
+  })
+</script>
+<!--4.使用全部清除结束-->
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>测试组件的嵌套</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+<template id="firstblock">
+  <p>以下为测试数据:</p>
+  <section>
+    <ul>
+      {{myday[0].src}}
+      <mymount :d="myday"></mymount>
+    </ul>
+  </section>
+</template>
+
+  <template id="secondblock">
+    <li v-for="i in d">
+      {{i.src}}
+      <p @click="click">点我试试 !</p>
+    </li>
+  </template>
+
+
+  <script type="text/javascript">
+    var $data = {
+      'day' : [{
+        'src' : 'www.baidu.com'
+      },{
+        'src' : 'www.hao123.com'
+      }]
+    };
+
+
+    var parentBlock = Vue.extend({
+      template : '#firstblock',
+      data : function(){
+        return {
+          'myday' : $data.day
+        }
+      },
+      components : {
+        'mymount' :{
+          template : '#secondblock',
+          props :['d'],
+          methods : {
+            'click' : function(){
+              alert('1');
+            }
+          }
+        }
+      }
+    });
+
+
+    var model = new Vue({
+      el : 'body',
+      data :{
+
+      },
+      ready : function(){
+        new parentBlock().$mount().$appendTo('body');
+      }
+    })
+  </script>
+
+</body>
+</html>

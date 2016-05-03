@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>组件使用实例1</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    #div1,#div2,#div3,#div4{
+      margin: 10px;
+      padding: 10px;
+      border: 2px dashed #FF8190;
+    }
+  </style>
+</head>
+<body>
+<!--1.利用v-for循环输出，并利用components进行注册-->
+<!--		<div id="div1">
+			<div v-for="plana in plans">
+				<planq :plana = "plana"></planq>
+			</div>
+
+			<template id="temp">
+				<div>
+					<span>{{plana.name}}</span>
+					<span>{{plana.price}}/month</span>
+					<button></button>
+				</div>
+			</template>
+		</div>
+
+		<script>
+			new Vue({
+				el : "#div1",
+				data : {
+					plans : [
+						{name:'enterprise',price : 100},
+						{name:'pro',price : 50},
+						{name:'personal',price : 10},
+						{name:'free',price : 0}
+					]
+				},
+				components : {
+					planq : {
+						template : "#temp",
+						props : ['plana']
+					}
+				}
+			})
+		</script>-->
+<!--1.利用v-for循环输出，并利用components进行注册结束-->
+
+
+<!--2.用components进行注册，在component中设置data，并设置了方法-->
+<!--<div id="div2">
+        <div v-for="plana in plans">
+            <planq :plana = "plana"></planq>
+        </div>
+
+        <template id="temp">
+            <div>
+                {{$data | json}}
+                <span>{{plana.name}}</span>
+                <span>{{plana.price}}/month</span>
+                <button @click = "setActivePlan">upgreat</button>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#div2",
+            data : {
+                plans : [
+                    {name:'enterprise',price : 100},
+                    {name:'pro',price : 50},
+                    {name:'personal',price : 10},
+                    {name:'free',price : 0}
+                ]
+            },
+            components : {
+                planq : {
+                    template : "#temp",
+                    props : ['plana'],
+                    data : function(){
+                        return {
+                            active:false
+                        }
+                    },
+                    methods : {
+                        setActivePlan : function(){
+                            this.active = this.plana;
+                        }
+                    }
+                }
+            }
+        })
+    </script>-->
+<!--2.用components进行注册，并设置了方法结束-->
+
+
+<!--3.用components进行注册，在父级上设置数据data，在子级中用prop调用-->
+<!--		<div id="div3">
+			{{ $data | json}}
+			<div v-for="plana in plans">
+				<plana :plana = "plana" :active.sync="active"></plana>
+			</div>
+		</div>
+
+		<template id="temp">
+			<span>{{plana.name}}</span>
+			<span>{{plana.prise}}</span>
+			<button @click="setActivePlan">upgreat</button>
+		</template>
+
+		<script>
+			new Vue({
+				el : '#div3',
+				data : {
+					plans : [
+						{name:'enterprise',prise:100},
+						{name:'pro',prise:50},
+						{name:'personal',prise:10},
+						{name:'free',prise:0}
+					],
+					active:{}
+				},
+				components : {
+					plana : {
+						template : "#temp",
+						props : ['plana','active'],
+						methods : {
+							setActivePlan : function(){
+								this.active = this.plana;
+							}
+						}
+					}
+				}
+			});
+		</script>-->
+<!--3.用components进行注册，在父级上设置数据data，在子级中用prop调用-->
+
+
+<!--4.用component进行注册，并用computed进行方法的设置-->
+<!--		<div id="div4">
+			{{$data | json}}
+			<div v-for="plana in plans">
+				<planq :plana="plana" :activea.sync="activeq"></planq>
+			</div>
+		</div>
+
+		<template id="temp">
+			<span>{{plana.name}}<span>
+			<span>{{plana.prise}}<span>
+			<button @click="setActive">{{isUpgrade?'up':'down'}}</button>
+		</template>
+
+		<script>
+			new Vue({
+				el : '#div4',
+				data :{
+					plans : [
+						{name:'enterprise',prise:100},
+						{name:'pro',prise:50},
+						{name:'personal',prise:10},
+						{name:'free',prise:0}
+					],
+					activeq :{
+					}
+				},
+				components : {
+					planq : {
+						template :'#temp',
+						props : ['plana','activea'],
+						computed : {
+							isUpgrade : function(){
+								return this.activea.prise < this.plana.prise
+							}
+						},
+						methods : {
+							setActive : function(){
+								this.activea = this.plana;
+							}
+						}
+					}
+				}
+			});
+		</script>-->
+<!--4.用component进行注册，并用computed进行方法的设置结束-->
+
+
+<!--5.用component进行注册，并在template中进行逻辑判断-->
+<div id="div5">
+  {{$data | json}}
+  <div v-for="plana in plans">
+    <planq :planc="plana" :activea.sync="activeq"></planq>
+  </div>
+</div>
+
+<template id="temp">
+			<span>{{planc.name}}<span>
+			<span>{{planc.prise}}<span>
+			<button @click="setActive" v-show="planc.prise != activea.prise">{{isUpgrade?'up':'down'}}</button>
+			<span v-else>current</span>
+</template>
+
+<script>
+  new Vue({
+    el : '#div5',
+    data :{
+      plans : [
+        {name:'enterprise',prise:100},
+        {name:'pro',prise:50},
+        {name:'personal',prise:10},
+        {name:'free',prise:0}
+      ],
+      activeq :{
+      }
+    },
+    components : {
+      planq : {
+        template :'#temp',
+        props : ['planc','activea'],
+        computed : {
+          isUpgrade : function(){
+            return this.activea.prise < this.planc.prise
+          }
+        },
+        methods : {
+          setActive : function(){
+            this.activea = this.planc;
+          }
+        }
+      }
+    }
+  });
+</script>
+<!--5.用component进行注册，并在template中进行逻辑判断结束 -->
+</body>
+</html>

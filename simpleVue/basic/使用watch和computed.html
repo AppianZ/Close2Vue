@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>使用watch和computed</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    div{
+      border: 2px dashed #FF8190;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<!--1.在data中直接设置skill的值开始-->
+<!--		<div id="div1">
+			<h1>skill1 : {{ points <100? 'begin1' : 'end1' }}</h1>
+		</div>
+		<script>
+			new Vue({
+				el : "#div1",
+				data  : {
+					points : 20,
+//					skill :'Beginner'
+				},
+			})
+		</script>-->
+<!--1.在data中直接设置skill的值结束-->
+
+
+<!--2.利用computed的计算属性中设置skill-->
+<!--		<div id="div2">
+			<h1>skill2 : {{ skill }}</h1>
+			<input v-model="points" />
+		</div>
+		<script>
+			new Vue({
+				el : "#div2",
+				data  : {
+					points : 20,
+				},
+				computed : {
+					skill : function(){
+						if(this.points <100){
+							return 'Begin2';
+						}
+						else{
+							return 'end2';
+						}
+					}
+				}
+			})
+		</script>-->
+<!--2.利用computed的计算属性中设置skill结束-->
+
+
+<!--3.利用直接双向绑定设置name-->
+<!--	<div id="div3">
+			<h1>{{firstname}} {{lastname}}</h1>
+			<input v-model="firstname" />
+			<input v-model="lastname" />
+		</div>
+		<script>
+			new Vue({
+				el : "#div3",
+				data : {
+					firstname : 'zhang',
+					lastname : 'jiawei'
+				}
+			})
+		</script>-->
+<!--3.利用直接双向绑定设置name结束-->
+
+<!--4.利用watch观察表达式中设置fullname-->
+<!--		<div id="div4">
+			<h1>{{full}}</h1>
+			<input v-model="first" />
+			<input v-model="last" />
+		</div>
+		<script>
+			new Vue({
+				el : "#div4",
+				data : {
+					first : 'zhang',
+					last : 'jiawei',
+					full : 'zhang jiawei'
+				},
+				watch : {
+					first : function(first){
+						this.full = first + ' ' + this.last;
+					},
+					last : function(last){
+						this.full = this.first + ' ' + last;
+					}
+				}
+			})
+		</script>-->
+<!--4.利用watch观察表达式中设置fullname-->
+
+<!--5.利用computed计算中设置fullname-->
+<div id="div5">
+  <h1>{{full}}</h1>
+  <input v-model="first" />
+  <input v-model="last" />
+</div>
+<script>
+  new Vue({
+    el : "#div5",
+    data : {
+      first : 'zhang',
+      last : 'jiawei'
+    },
+    computed : {
+      full : function(){
+        return this.first + ' ' + this.last;
+      }
+    }
+  })
+</script>
+<!--5.利用computed计算中设置fullname结束-->
+</body>
+</html>

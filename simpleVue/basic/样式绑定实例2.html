@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>样式绑定实例2</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    #div1,#div2,#div3,#div4{
+      margin: 10px;
+      padding: 10px;
+      border: 2px dashed #FF8190;
+    }
+    .completedaa{
+      color: red;
+      text-decoration:line-through ;
+    }
+    .completedbb{
+      font-size: 24px;
+    }
+    .completedcc{
+      color: yellowgreen;
+    }
+    .any{
+      border: 1px dashed #333;
+    }
+  </style>
+</head>
+<body>
+<!--1.当data对象的元素是一个数组的时候-->
+<!--	<div id="div1">
+          <ul>
+              <li v-for="task in tasks">{{task}}</li>
+          </ul>
+      </div>
+      <script>
+          new Vue({
+              el : "#div1",
+              data : {
+                  tasks : [
+                      'my name is Appian',
+                      'I am a baby girl',
+                      'what about you',
+                      'do you like coding'
+                  ]
+              }
+          })
+      </script>-->
+<!--1.当data对象的元素是一个数组的时候结束-->
+
+<!--2.给标签绑定class-->
+<div id="div2">
+  <!--绑定固定的样式，className用字符串表示-->
+  <ul>
+    <li :class="'completedaa'" v-for="t in tasks">{{t.body}}</li>
+  </ul>
+  <!--绑定固定的样式，className用字符串表示-->
+  <ul>
+    <li :class="['completedbb','completedcc', anything ? 'any' : '']" v-for="t in tasks">{{t.body}}</li>
+  </ul>
+  <!--绑定固定样式是一个对象，对象的值是一个类名-->
+  <ul>
+    <li :class="something" v-for="t in tasks">{{t.body}}</li>
+  </ul>
+  <!--绑定固定样式是一个对象，对象的值也是对象-->
+  <ul>
+    <li :class="comthing" v-for="t in tasks">{{t.body}}</li>
+  </ul>
+</div>
+
+<script>
+  new Vue({
+    el : "#div2",
+    data : {
+      anything : true,
+      something : 'completedbb',
+      comthing : {
+        'completedaa' : true,
+        'completedbb' : false,
+        'completedcc' :true
+      },
+      tasks : [
+        {body:'my name is Appian', completed : false},
+        {body:'I am a baby girl',completed : true},
+        {body:'what about you',completed : false},
+        {body:'do you like coding',completed : true}
+      ]
+    }
+  })
+</script>
+<!--2.给标签绑定class结束-->
+
+<!--3.当data对象的元素是一个对象的时候-->
+<!--		<div id="div3">
+			<ul>
+				<li :class="{ 'completedaa' : task.completed }"  v-for="task in tasks">{{task.body}}</li>
+			</ul>
+		</div>
+
+		<script>
+			new Vue({
+				el : '#div3',
+				data : {
+					tasks : [
+						{body:'my name is Appian', completed : false},
+						{body:'I am a baby girl',completed : true},
+						{body:'what about you',completed : false},
+						{body:'do you like coding',completed : true}
+					]
+				}
+			})
+		</script>-->
+<!--3.当data对象的元素是一个对象的时候结束-->
+
+<!--4.对class进行操作-->
+<div id="div4">
+  <ul>
+    <li :class="{ 'completedaa' : task.completed }"
+        v-for="task in tasks"
+        @click="toggle(task)"
+    >
+      {{task.body}}
+    </li>
+  </ul>
+</div>
+
+<script>
+  new Vue({
+    el : '#div4',
+    data : {
+      tasks : [
+        {body:'my name is Appian', completed : false},
+        {body:'I am a baby girl',completed : true},
+        {body:'what about you',completed : false},
+        {body:'do you like coding',completed : true}
+      ]
+    },
+    methods : {
+      toggle : function(task){
+        task.completed = !task.completed;
+      }
+    }
+  })
+</script>
+<!--4.对class进行操作结束-->
+
+</body>
+</html>

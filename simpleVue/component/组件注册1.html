@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>组件注册</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0 ;
+    }
+    .testbox {
+      border: 3px dashed #FF8290;
+      margin: 10px 15px;
+      padding: 10px;
+    }
+  </style>
+
+</head>
+<body>
+<!--1.简单的定义注册和创建实例-->
+<div class="testbox" id="example1">
+  <my-component></my-component>
+</div>
+
+<script>
+  //定义
+  var MyComponent = Vue.extend({
+    template : '<div>A custom component</div>'
+  });
+  //注册
+  Vue.component('my-component', MyComponent);
+  //创建根实例
+  new Vue({
+    el : '#example1'
+  })
+</script>
+<!--1.简单的定义注册和创建实例结束-->
+
+
+<!--2.局部注册-->
+<div class="testbox" id="example2">
+  <my-component></my-component>
+</div>
+<script>
+  // 在一个步骤中扩展和注册
+  Vue.component('my-component',{
+    template : "<div>welcome to appian.me</div>"
+  });
+
+  //			局部注册也可以这么做
+  //			var Parent  = Vue.extend({
+  //				component:{
+  //					'my-component' : {
+  //						template : '<div>good bye my almost lover</div>'
+  //					}
+  //				}
+  //			})
+
+  new Vue({
+    el : '#example2'
+  })
+</script>
+<!--2.局部注册结束-->
+
+</body>
+</html>

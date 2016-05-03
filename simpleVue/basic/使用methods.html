@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>使用methods</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+<!--1.方法处理器-->
+<div id = "test1">
+  <button v-on:click="myclick">clickme</button>
+  <button v-on:click="say('hi')">sayhi</button>
+</div>
+<!--1.方法处理器结束-->
+
+
+<!--1.方法处理器-->
+<script type="text/javascript">
+  var vm1 = new Vue({
+    el : "#test1",
+    data : {
+      name : "Appian.me"
+    },
+    methods :{
+      myclick : function(event){
+        alert('打开控制台');
+        console.log("test1的function");
+        console.log("hello" + this.name +"!");
+        console.log(event.target.tagName);
+      },
+      say : function(msg){
+        alert(msg);
+      }
+    }
+  });
+</script>
+<!--1.方法处理器结束-->
+</body>
+</html>

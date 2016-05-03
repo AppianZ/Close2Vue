@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试动态插入组件</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+</head>
+<body>
+
+<div id="main"></div>
+<button @click="click">点击添加组件</button>
+
+<script type="x-template" id="about">
+  <header @click="header" >我是一行用于测试点击事件的文字</header>
+  <section>
+    <p>动态组件测试段落</p>
+  </section>
+  <img :src="src" />
+</script>
+<script>
+  var about = Vue.extend({
+    template : "#about",
+    data : function() {
+      return {
+        src : 'http://7xno47.com2.z0.glb.qiniucdn.com/pandaimg.jpg?imageView2/1/w/40/q75'
+      }
+    },
+    methods : {
+      header : function() {
+        alert('这是header点击时的log');
+      }
+    }
+  });
+
+  var model = new Vue ({
+    el : 'body',
+    methods : {
+      click : function(){
+        new about().$mount().$appendTo("#main");
+      }
+    }
+  });
+</script>
+</body>
+</html>

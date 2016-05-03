@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>组件注册的多种方式</title>
+  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <style>
+    div{
+      margin: 10px;
+      padding: 10px;
+      border: 2px dashed #FF8190;
+    }
+  </style>
+</head>
+<body>
+<!--1.组件的直接注册-->
+<!--		<div id="div1">
+			<my-counter></my-counter>
+		</div>
+		<script>
+			Vue.component('my-counter',{
+				template : '<h1>Hello Vue.js</h1>'
+			})
+
+			new Vue({
+				el : "#div1"
+			})
+		</script>-->
+<!--1.组件的直接注册结束·-->
+
+
+<!--2.1个组件的直接复用注册使用-->
+<!--		<div id="div2">
+			<counter></counter>
+			<counter></counter>
+			<counter></counter>
+		</div>
+		<script>
+			Vue.component('counter',{
+				template : '<h1>Hello Vue.js</h1>'
+			})
+
+			new Vue({
+				el : '#div2'
+			})
+		</script>-->
+<!--2.1个组件的直接复用注册使用结束-->
+
+
+<!--3.1个组件的复用调用注册-->
+<!--<div id="div3">
+        <counter></counter>
+        <counter></counter>
+        <counter></counter>
+    </div>
+
+    <template id="temp">
+        <h1>Hello Vue.js</h1>
+        <button>click</button>
+    </template>
+
+    <script>
+    Vue.component('counter',{
+        template : "#temp"
+    })
+    new Vue({
+        el : "#div3"
+    })
+    </script>-->
+<!--3.1个组件的复用调用注册结束-->
+
+
+<!--4.1个组件的method单独调用-->
+<!--<div id="div4">
+        <counter></counter>
+        <counter></counter>
+    </div>
+
+    <template id="temp">
+        <h1>Hello Vue.js</h1>
+        <button @click = "count += 1">{{count}}</button>
+    </template>
+
+    <script>
+        Vue.component('counter',{
+            template : "#temp",
+            data : function(){
+                return {
+                    count : 0
+                }
+            }
+        })
+
+        new Vue({
+            el : "#div4",
+        })
+    </script>-->
+<!--4.1个组件的method单独调用结束-->
+
+<!--5.1个组件期望使用的父组件数据的属性props-->
+<!--		<div id="div5">
+			<counter subject = "title1"></counter>
+			<counter subject = "title2"></counter>
+		</div>
+
+		<template id="temp">
+			<h1>{{subject}}</h1>
+			<button @click = "count += 1">{{count}}</button>
+		</template>
+
+		<script>
+			Vue.component('counter',{
+				template : "#temp",
+				props : ['subject'],
+				data : function(){
+					return {
+						count : 0
+					}
+				}
+			})
+
+			new Vue({
+				el : "#div5",
+			})
+		</script>-->
+<!--5.1个组件期望使用的父组件数据的属性结束-->
+
+
+<!--6.组件的多次注册-->
+<div id="div6">
+  <counter1 subject = "title1"></counter1>
+  <counter1 subject = "title2"></counter1>
+</div>
+
+<template id="temp">
+  <h1>{{subject}}</h1>
+  <button @click = "count += 1">{{count}}</button>
+</template>
+
+<script>
+  new Vue({
+    el : "#div6",
+    components : {
+      counter1 :{
+        template : "#temp",
+        props : ['subject'],
+        data : function(){
+          return {
+            count : 0
+          }
+        }
+      }
+    }
+  })
+</script>
+<!--6.组件的多次注册结束-->
+</body>
+</html>
