@@ -1,6 +1,6 @@
 # Close2Vue
 
-> This is a tutorial to vue‘s beginner.⊂(˃̶͈̀ε ˂̶͈́ ⊂ )
+> This is a tutorial to vue‘s beginner.  ⊂(˃̶͈̀ε ˂̶͈́ ⊂ )
 
 > (∩ᵒ̴̶̷̤⌔ᵒ̴̶̷̤∩)项目取了Close to Vue的谐音
 
@@ -16,7 +16,6 @@
 [第三章《组件改变生活_揭开Vue组件的神秘面纱》](https://github.com/AppianZ/Close2Vue/blob/master/Vue%E7%BB%84%E4%BB%B6%E6%94%B9%E5%8F%98%E7%94%9F%E6%B4%BB.md)
 
 <br/><br/><br/>
-
 (ෆ ͒•∘̬• ͒)◞  查看segmentfault解说，请点击：↓↓↓
 
 [第一章《从零开始学Vue》](https://segmentfault.com/a/1190000005041030)
