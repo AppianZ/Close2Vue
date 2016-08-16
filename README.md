@@ -23,3 +23,17 @@
 [第二章《纪念即将逝去的Vue过滤器》](https://segmentfault.com/a/1190000005027001)
 
 [第三章《组件改变生活_揭开Vue组件的神秘面纱》](https://segmentfault.com/a/1190000005045219)
+
+<br/><br/><br/>
+(ෆ ͒•∘̬• ͒)◞  你也可以在阅读后，在[simpleVue文件夹](https://github.com/AppianZ/Close2Vue/tree/master/simpleVue)中找到想要的demo，请点击：↓↓↓
+[丰富多彩的示例代码](https://github.com/AppianZ/Close2Vue/tree/master/simpleVue)
+
+( ´•༝• ` )在文件夹中，其中case.html是文章中提到的示例，可能有一个或多个示例页；
+( ´•༝• ` )文件夹中的其他页面是补充示例demo页面。
+( ´•༝• ` )也可以通过目录结构中commit的message，轻松找到文章中的示例和嘉宝补充的额外示例喔~
+
+> basic目录是  第一章《从零开始学Vue》  的示例文件夹
+
+> component目录是  第二章《纪念即将逝去的Vue过滤器》  的示例文件夹
+
+> filter目录是  第三章《组件改变生活_揭开Vue组件的神秘面纱》  的示例文件夹
