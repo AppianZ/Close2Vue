@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>表单控件v-model</title>
+  <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
+  <style>
+    section {
+      border: 3px solid #F36F70;
+      padding: 10px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+<div id="vueInstance">
+  <section>
+    【input的绑定】<br/>
+    输入您的姓名: <input type="text" v-model="name">
+    <p>{{ name }}</p>
+  </section>
+  <section>
+    【textarea的绑定】<br/>
+    输入您的简介: <textarea v-model="desc" placeholder="输入多行文本"></textarea>
+    <p style="white-space: pre" v-text="desc"></p>
+  </section>
+  <section>
+    【checkbox的绑定,radio类似】<br/>
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+  </section>
+  <section>
+    【多个checkbox的绑定】<br/>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+  </section>
+  <section>
+    【select多选框绑定】<br/>
+    <select v-model="selected">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+  </section>
+
+
+</div>
+
+<script>
+  var V = new Vue({
+    el : '#vueInstance',
+    data : {
+      name : '_Appian',
+      desc: '',
+      checked: false,
+      checkedNames: [],
+      selected: '',
+    },
+    methods : {
+    }
+  });
+</script>
+</body>
+</html>

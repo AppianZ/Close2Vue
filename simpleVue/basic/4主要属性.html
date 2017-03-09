@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实例对象的主要属性</title>
+    <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+</head>
+<body>
+<div id="vueInstance">
+  输入一个数字: <input type="text" v-model="value1">
+  <p>计算结果：{{ square }}</p>
+
+  输入1~10内的数字: <input type="text" v-model="value2">
+  <p>计算结果：{{ resultMsg }} - 其实是: {{ randNum }}</p>
+
+  <br/><br/><br/> <br/><br/><br/>
+  <p>
+    Ask a yes/no question:
+    <input v-model="question">
+  </p>
+  <p>{{ answer }}</p>
+
+</div>
+
+<script>
+  var V = new Vue({
+    el : '#vueInstance',
+    data : {
+      value1 :1,
+      value2 : null,
+      randNum : 5,//第一次随机数为5
+      question: '',
+      answer: '我只能回答带?的问题'
+    },
+    methods : {
+      getRandNum: function(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      },
+      getAnswer: _.debounce(
+        function () {
+          var vm = this;
+          if (this.question.indexOf('?') === -1) {
+            vm.answer = '请用英文问号结尾 ;-)';
+            return
+          }
+          vm.answer = 'Thinking...';
+          axios.get('https://yesno.wtf/api')
+          .then(function (response) {
+            vm.answer = _.capitalize(response.data.answer)
+          })
+          .catch(function (error) {
+            vm.answer = 'Error! 我回答不了. ' + error
+          })
+        }, 500)
+    },
+    computed : {
+      square : function(){
+        return this.value1 * this.value1;
+      },
+      resultMsg : function(){
+        if (this.value2 == this.randNum) {
+          this.randNum = this.getRandNum(1, 10);
+          return '你猜对了!';
+        } else {
+          this.randNum = this.getRandNum(1, 10);
+          return '猜错了，再来!';
+        }
+      }
+    },
+    watch: {
+      question: function (newValue,oldValue) {
+        // 如果 question 发生改变，这个函数就会运行
+        console.log(newValue, oldValue);
+        this.answer = '输入中...';
+        this.getAnswer();
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
