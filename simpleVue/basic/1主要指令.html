@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html中的常用指令</title>
+    <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="vueInstance">
+    <!--loginStatus为true时会显示的section-->
+    <section v-if="loginStatus">
+      输入您的姓名: <input type="text" v-model="name">
+      <p>{{ name }}</p>
+      输入您的简介: <textarea v-model="desc" placeholder="输入多行文本"></textarea>
+      <p style="white-space: pre" v-text="desc"></p>
+      <button v-on:click="say">欢迎点击</button>
+      <button @click="switchLoginStatus">退出登录</button>
+    </section>
+
+    <!--loginStatus为false时会显示的section-->
+    <section v-if="!loginStatus">
+      登录用户: <input type="text">
+      登录密码: <input type="password">
+      <button @click="switchLoginStatus">登录</button>
+    </section>
+
+    <br/><br/><br/>
+
+    <ul>
+      <li v-for="el in products">
+        {{ el.name }} - ￥ {{ el. price }} - {{ el. category }}
+      </li>
+    </ul>
+
+    <ul>
+      直接使用 $index 失效
+      <li v-for="el in products">
+        {{ $index }} - {{ el.name }} - ￥ {{ el. price }} - {{ el. category }}
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="(el,index) in products">
+        {{ index }} - {{ el.name }} - ￥ {{ el. price }} - {{ el. category }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    var V = new Vue({
+      el : '#vueInstance',
+      data : {
+        name : '_Appian',
+        desc: '',
+        loginStatus :　false,
+        products : [
+          {name: 'microphone', price: 25, category: 'electronics'},
+          {name: 'laptop case', price: 15, category: 'accessories'},
+          {name: 'screen cleaner', price: 17, category: 'accessories'},
+          {name: 'laptop charger', price: 70, category: 'electronics'},
+          {name: 'mouse', price: 40, category: 'electronics'},
+          {name: 'earphones', price: 20, category: 'electronics'},
+          {name: 'monitor', price: 120, category: 'electronics'}
+        ]
+      },
+      methods : {
+        say : function(){
+          alert('欢迎' + this.name);
+        },
+        switchLoginStatus : function(){
+          this.loginStatus = !this.loginStatus;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
