@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>文章中的实例3</title>
-    <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+    <title>父子组件props传值</title>
+    <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
 </head>
 <body>
   <div id="vueInstance">
@@ -15,10 +15,12 @@
   </div>
 
   <template id="mineTpl">
-    <h1>{{ name }}</h1>
-    <h2>{{ title }}</h2>
-    <h3>{{ city }}</h3>
-    <p>{{ content }}</p>
+    <div>
+      <h1>{{ name }}</h1>
+      <h2>{{ title }}</h2>
+      <h3>{{ city }}</h3>
+      <p>{{ content }}</p>
+    </div>
   </template>
 
   <script>

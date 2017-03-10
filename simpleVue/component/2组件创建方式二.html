@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>文章中的实例2</title>
-  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <title>组件创建方式2</title>
+  <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
 </head>
 <body>
   <div id="vueInstance">
@@ -11,8 +11,10 @@
   </div>
 
   <template id="mineTpl">
-    <p>My name is Appian.</p>
-    <button>点击没有任何事件</button>
+    <div>
+      <p>My name is Appian.</p>
+      <button>点击也没有任何事件</button>
+    </div>
   </template>
 
   <script>
