@@ -3,38 +3,45 @@
 <head>
   <meta charset="utf-8">
   <title>父子组件通信</title>
-  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
 </head>
 <body>
-<!--1.自定义事件-->
-<!-- 子组件模板 -->
-<template id="child-template">
-  <input v-model="msg" />
-  <button v-on:click="notify">dispath派发</button>
-</template>
-<!-- 父组件模板 -->
+<!-- 父组件模板开始 -->
 <div id="events-template">
-  <p>Messages : {{messages | json}}</p>
-  <child></child>
+  <p>Messages : {{messages}}</p>
+  <child v-on:msg-change="change"></child>
 </div>
+<!-- 父组件模板结束 -->
+
+<!-- 子组件模板开始 -->
+<template id="child-template">
+  <div>
+    <input v-model="msg" />
+    <button @click="notify">eventbus的emit</button>
+  </div>
+</template>
+<!-- 子组件模板结束 -->
 
 <script>
   // 注册子组件
   // 将当前消息派发出去
-  Vue.component('child',{
+  var child = Vue.component('child',{
     template : "#child-template",
     data : function(){
-      return  { msg : 'hello'}
+      return  {
+        msg : 'hello'
+      }
     },
     methods :{
       notify :  function(){
         if(this.msg.trim()){
-          this.$dispatch('child-msg',this.msg);
+          console.log(this.$emit);
+          this.$emit('msg-change',this.msg);
           this.msg = '';
         }
       }
     }
-  })
+  });
 
   // 启动父组件
   // 将收到消息时将事件推入一个数组
@@ -43,13 +50,13 @@
     data : {
       messages : []
     },
-    events : {
-      'child-msg' : function(msg){
+    methods : {
+      change : function(msg){ //方法名不能为肉串
+        console.log(msg);
         this.messages.push(msg);
       }
     }
   })
 </script>
-<!--1.自定义事件结束-->
 </body>
 </html>
