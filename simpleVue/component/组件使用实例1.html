@@ -10,23 +10,25 @@
       padding: 10px;
       border: 2px dashed #FF8190;
     }
+    #div2 .active {
+      color: #f33;
+    }
   </style>
 </head>
 <body>
 <!--1.利用v-for循环输出，并利用components进行注册-->
-<!--		<div id="div1">
-			<div v-for="plana in plans">
-				<planq :plana = "plana"></planq>
+		<div id="div1">
+			<div v-for="el in plans">
+				<plan :plandata="el"></plan>
 			</div>
-
-			<template id="temp">
-				<div>
-					<span>{{plana.name}}</span>
-					<span>{{plana.price}}/month</span>
-					<button></button>
-				</div>
-			</template>
 		</div>
+
+    <template id="temp">
+      <div>
+        <span>{{plandata.name}}</span>
+        <span>{{plandata.price}}/month</span>
+      </div>
+    </template>
 
 		<script>
 			new Vue({
@@ -40,31 +42,30 @@
 					]
 				},
 				components : {
-					planq : {
+					plan : {
 						template : "#temp",
-						props : ['plana']
+						props : ['plandata'],
 					}
 				}
 			})
-		</script>-->
+		</script>
 <!--1.利用v-for循环输出，并利用components进行注册结束-->
 
 
 <!--2.用components进行注册，在component中设置data，并设置了方法-->
 <!--<div id="div2">
-        <div v-for="plana in plans">
-            <planq :plana = "plana"></planq>
+        <div v-for="el in plans">
+            <plan :plandata = "el"></plan>
         </div>
-
-        <template id="temp">
-            <div>
-                {{$data | json}}
-                <span>{{plana.name}}</span>
-                <span>{{plana.price}}/month</span>
-                <button @click = "setActivePlan">upgreat</button>
-            </div>
-        </template>
     </div>
+
+    <template id="temp">
+      <div>
+        <span :class="{'active' : active}">{{plandata.name}}</span>
+        <span>{{plandata.price}}/month</span>
+        <button @click = "setActivePlan">upgreat</button>
+      </div>
+    </template>
 
     <script>
         new Vue({
@@ -78,9 +79,9 @@
                 ]
             },
             components : {
-                planq : {
+                plan : {
                     template : "#temp",
-                    props : ['plana'],
+                    props : ['plandata'],
                     data : function(){
                         return {
                             active:false
@@ -88,7 +89,7 @@
                     },
                     methods : {
                         setActivePlan : function(){
-                            this.active = this.plana;
+                            this.active = !this.active;
                         }
                     }
                 }
@@ -100,16 +101,18 @@
 
 <!--3.用components进行注册，在父级上设置数据data，在子级中用prop调用-->
 <!--		<div id="div3">
-			{{ $data | json}}
-			<div v-for="plana in plans">
-				<plana :plana = "plana" :active.sync="active"></plana>
+			<div v-for="el in plans">
+				<plan :plandata = "el" :active="active"></plan>
 			</div>
-		</div>
+      <p>upgreat: {{active.name}}</p>
+    </div>
 
 		<template id="temp">
-			<span>{{plana.name}}</span>
-			<span>{{plana.prise}}</span>
-			<button @click="setActivePlan">upgreat</button>
+      <div>
+        <span>{{plandata.name}}</span>
+        <span>{{plandata.prise}}</span>
+        <button @click="setActivePlan">upgreat</button>
+      </div>
 		</template>
 
 		<script>
@@ -122,15 +125,18 @@
 						{name:'personal',prise:10},
 						{name:'free',prise:0}
 					],
-					active:{}
+					active:{
+					  name: '',
+            prise: ''
+          }
 				},
 				components : {
-					plana : {
+					plan : {
 						template : "#temp",
-						props : ['plana','active'],
+						props : ['plandata','active'],
 						methods : {
 							setActivePlan : function(){
-								this.active = this.plana;
+							  Object.assign(this.active, this.plandata);
 							}
 						}
 					}
@@ -142,16 +148,18 @@
 
 <!--4.用component进行注册，并用computed进行方法的设置-->
 <!--		<div id="div4">
-			{{$data | json}}
-			<div v-for="plana in plans">
-				<planq :plana="plana" :activea.sync="activeq"></planq>
+			<div v-for="el in plans">
+				<plan :plandata="el" :active.sync="active"></plan>
 			</div>
-		</div>
+      <p>upgreat: {{active.name}}</p>
+    </div>
 
 		<template id="temp">
-			<span>{{plana.name}}<span>
-			<span>{{plana.prise}}<span>
+      <div>
+        <span>{{plandata.name}}<span>
+			<span>{{plandata.prise}}<span>
 			<button @click="setActive">{{isUpgrade?'up':'down'}}</button>
+      </div>
 		</template>
 
 		<script>
@@ -164,22 +172,24 @@
 						{name:'personal',prise:10},
 						{name:'free',prise:0}
 					],
-					activeq :{
+					active :{
+            name: '',
+            prise: ''
 					}
 				},
 				components : {
-					planq : {
+					plan : {
 						template :'#temp',
-						props : ['plana','activea'],
+						props : ['plandata','active'],
 						computed : {
 							isUpgrade : function(){
-								return this.activea.prise < this.plana.prise
+								return this.active.prise < this.plandata.prise
 							}
 						},
 						methods : {
 							setActive : function(){
-								this.activea = this.plana;
-							}
+                Object.assign(this.active, this.plandata);
+              }
 						}
 					}
 				}
@@ -189,18 +199,20 @@
 
 
 <!--5.用component进行注册，并在template中进行逻辑判断-->
-<div id="div5">
-  {{$data | json}}
-  <div v-for="plana in plans">
-    <planq :planc="plana" :activea.sync="activeq"></planq>
+<!--<div id="div5">
+  <div v-for="el in plans">
+    <plan :plandata="el" :active="active"></plan>
   </div>
+  <p>upgreat: {{active.name}}</p>
 </div>
 
 <template id="temp">
-			<span>{{planc.name}}<span>
-			<span>{{planc.prise}}<span>
-			<button @click="setActive" v-show="planc.prise != activea.prise">{{isUpgrade?'up':'down'}}</button>
+  <div>
+    <span>{{plandata.name}}<span>
+			<span>{{plandata.prise}}<span>
+			<button @click="setActive" v-show="plandata.prise != active.prise">{{isUpgrade?'up':'down'}}</button>
 			<span v-else>current</span>
+  </div>
 </template>
 
 <script>
@@ -213,27 +225,29 @@
         {name:'personal',prise:10},
         {name:'free',prise:0}
       ],
-      activeq :{
+      active :{
+        name: '',
+        prise: ''
       }
     },
     components : {
-      planq : {
+      plan : {
         template :'#temp',
-        props : ['planc','activea'],
+        props : ['plandata','active'],
         computed : {
           isUpgrade : function(){
-            return this.activea.prise < this.planc.prise
+            return this.active.prise < this.plandata.prise
           }
         },
         methods : {
           setActive : function(){
-            this.activea = this.planc;
+            Object.assign(this.active, this.plandata);
           }
         }
       }
     }
   });
-</script>
+</script>-->
 <!--5.用component进行注册，并在template中进行逻辑判断结束 -->
 </body>
 </html>

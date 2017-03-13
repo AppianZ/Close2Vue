@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>组件注册的多种方式</title>
-  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
   <style>
     div{
       margin: 10px;
@@ -14,18 +14,18 @@
 </head>
 <body>
 <!--1.组件的直接注册-->
-<!--		<div id="div1">
+		<div id="div1">
 			<my-counter></my-counter>
 		</div>
 		<script>
 			Vue.component('my-counter',{
 				template : '<h1>Hello Vue.js</h1>'
-			})
+			});
 
 			new Vue({
 				el : "#div1"
 			})
-		</script>-->
+		</script>
 <!--1.组件的直接注册结束·-->
 
 
@@ -55,14 +55,16 @@
     </div>
 
     <template id="temp">
+      <div>
         <h1>Hello Vue.js</h1>
         <button>click</button>
+      </div>
     </template>
 
     <script>
     Vue.component('counter',{
         template : "#temp"
-    })
+    });
     new Vue({
         el : "#div3"
     })
@@ -77,8 +79,10 @@
     </div>
 
     <template id="temp">
+      <div>
         <h1>Hello Vue.js</h1>
-        <button @click = "count += 1">{{count}}</button>
+
+      </div>
     </template>
 
     <script>
@@ -89,7 +93,7 @@
                     count : 0
                 }
             }
-        })
+        });
 
         new Vue({
             el : "#div4",
@@ -104,8 +108,10 @@
 		</div>
 
 		<template id="temp">
-			<h1>{{subject}}</h1>
-			<button @click = "count += 1">{{count}}</button>
+      <div>
+        <h1>{{subject}}</h1>
+        <button @click = "count += 1">{{count}}</button>
+      </div>
 		</template>
 
 		<script>
@@ -127,14 +133,16 @@
 
 
 <!--6.组件的多次注册-->
-<div id="div6">
+<!--<div id="div6">
   <counter1 subject = "title1"></counter1>
   <counter1 subject = "title2"></counter1>
 </div>
 
 <template id="temp">
-  <h1>{{subject}}</h1>
-  <button @click = "count += 1">{{count}}</button>
+  <div>
+    <h1>{{subject}}</h1>
+    <button @click = "count += 1">{{count}}</button>
+  </div>
 </template>
 
 <script>
@@ -152,7 +160,7 @@
       }
     }
   })
-</script>
+</script>-->
 <!--6.组件的多次注册结束-->
 </body>
 </html>

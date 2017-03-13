@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>测试组件的嵌套</title>
-  <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+  <script src="https://unpkg.com/vue@2.2.2/dist/vue.js"></script>
 </head>
 <body>
+<div id="vueInstance"></div>
+
 <template id="firstblock">
-  <p>以下为测试数据:</p>
-  <section>
-    <ul>
-      {{myday[0].src}}
-      <mymount :d="myday"></mymount>
-    </ul>
-  </section>
+  <div>
+    <p>以下为测试数据:</p>
+    <section>
+      <ul>
+        {{myday[0].src}}
+        <mymount :d="myday"></mymount>
+      </ul>
+    </section>
+  </div>
 </template>
 
   <template id="secondblock">
-    <li v-for="i in d">
-      {{i.src}}
-      <p @click="click">点我试试 !</p>
-    </li>
+    <div>
+      <li v-for="i in d">
+        {{i.src}}
+        <button @click="click">点我试试 !</button>
+      </li>
+    </div>
   </template>
 
 
@@ -56,12 +62,12 @@
 
 
     var model = new Vue({
-      el : 'body',
+      el : '#vueInstance',
       data :{
-
       },
-      ready : function(){
-        new parentBlock().$mount().$appendTo('body');
+      mounted : function(){
+        console.log(new parentBlock().$mount().$el);
+        document.getElementById('vueInstance').appendChild(new parentBlock().$mount().$el);
       }
     })
   </script>
