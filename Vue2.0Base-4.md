@@ -86,6 +86,48 @@ const router = new VueRouter({
 });
 ```
 
+### 路由的常见参数
+```js
+{
+    name: 'bar', // 路由的名字，和path同时出现的时候，那么vue会选择使用name字段
+	path: '/bar', // 定义一个相对路径，如果没有 / 则代表是绝对路径
+	component: Bar, // 直接挂载一个组件
+	children: [{ // 组件嵌套
+		path: 'foo', //相当于'/bar/foo'
+		component: (resoleve) { // 异步加载组件
+    		require(['./../../component/foo.vue'], resoleve);
+    	}
+	}],
+    redirect: { name: 'foo' }, // 重定向到另一个组件，url会从‘/bar’被替换成为name为foo的组件的url
+    alias: '/foo' // /bar 的别名是 /foo，意味着，当用户访问 /foo 时，虽然URL 会保持为 /foo，但是路由匹配则为 /bar匹配到的组件，就像用户访问 /bar 效果一样。
+    // 利用别名可以自由地将 UI 结构映射到任意的 URL，而不是受限于配置的嵌套路由结构。
+	meta: { 
+	   scrollToTop: true, // 需要记录滚动条位置
+       keepAlive: true //缓存
+	}, 
+}
+```
+
+**也可以一个路由可以有多个组件构成，组件的key和router-view的name相对应**
+
+```html
+  <router-view class="view one"></router-view> //name默认为default
+  <router-view class="view two" name="a"></router-view>
+  <router-view class="view three" name="b"></router-view>
+```
+```js
+ {
+	    path: 'zee',
+	    components: { // 复数形式
+            default: Foo,
+            a: Bar,
+            b: Baz
+      }
+}
+```
+
+
+
 ## 在入口文件中引入router文件，并渲染
 ### 一般情况下的入口js
 ```js
@@ -157,10 +199,10 @@ new Vue({
 <a href="/article">Article</a>
 
 <!-- 另一方面to也可以使用对象，即前面route中配置的对象 -->
-<!-- 命名的路由 -->
+<!-- 命名的路由，下面的结果为/homepage/user/123 -->
 <router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
 
-<!-- 带查询参数，下面的结果为 /register?plan=private -->
+<!-- 带查询参数，下面的结果为 /homepage?plan=private -->
 <router-link :to="{ path: 'register', query: { plan: 'private' }}">Register</router-link>
 ```
 
