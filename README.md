@@ -1,9 +1,9 @@
 # Close2Vue
 
 > This is a tutorial to vue2‘s beginner.  ⊂(˃̶͈̀ε ˂̶͈́ ⊂ )
-
+>
 > (∩ᵒ̴̶̷̤⌔ᵒ̴̶̷̤∩)项目取了Close to Vue的谐音~
-
+>
 > 内容如题,能够让你更靠近Vue,而且是vue2.0哦  ฅ( ̳• ·̫ • ̳ฅ)♡
 
 ```js
