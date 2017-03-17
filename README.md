@@ -8,15 +8,15 @@
 
 ```js
 +--- simpleVue
-    +--- basic 配合 Vue2.0Base-1 & Vue2.0Base-2
-    +--- component 配合Vue2.0Base-3
+    +--- basic 配合 Vue2Base-1 & Vue2Base-2
+    +--- component 配合Vue2Base-3
 
 +--- 其他文件夹没用
-+--- Vue2.0Base-1.md  vue2的基本指令
-+--- Vue2.0Base-2.md  vue2的基本属性
-+--- Vue2.0Base-3.md  vue2的组件基本用法
-+--- Vue2.0Base-4.md  vue-router2
-+--- Vue2.0Base-5.md  vuex2
++--- Vue2Base-1\.md  vue2的基本指令
++--- Vue2Base-2\.md  vue2的基本属性
++--- Vue2Base-3\.md  vue2的组件基本用法
++--- Vue2Base-4\.md  vue-router2
++--- Vue2Base-5\.md  vuex2
 ```
 
 [Vue2.0Base-1.md](./Vue2.0Base-1.md)
